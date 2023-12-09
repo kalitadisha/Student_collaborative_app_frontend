@@ -59,7 +59,7 @@ function Userregistration() {
           </div>
         </div>
       </div>
-    </form >
+    
   );
 }
 
