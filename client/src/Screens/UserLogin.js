@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Loader from "../components/Loader";
-import Error from "../components/Error";
-import Success from "../components/Success";
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Loader from "../Components/Loader";
+import Error from "../Components/Error";
+import Success from "../Components/Success";
 
 
-function Farmerlogin() {
+
+function UserLogin() {
 
     const [Name, setname] = useState('');
     const [password, setpassword] = useState('');
@@ -13,7 +15,6 @@ function Farmerlogin() {
     const [loading, setloading] = useState(false);
     const [error, seterror] = useState(false);
     const [success, setsuccess] = useState();
-
 
     async function Login() {
 
@@ -48,7 +49,6 @@ function Farmerlogin() {
         console.log(user)
     }
 
-    
 
     return (
         <div>
@@ -58,14 +58,19 @@ function Farmerlogin() {
                     {error && (<Error message='Invalid Credentials!' />)}
                     {success && (<Success message='Login Successful! .....redirecting' />)}
                     <div className="bs">
-                        <h2>Login</h2>
+                        <h2 className="H2-style">Login</h2>
 
                         <input type="text" className="form-control" placeholder="Username"
                             value={Name} onChange={(e) => { setname(e.target.value) }} />
                         <input type="password" className="form-control" placeholder="password"
                             value={password} onChange={(e) => { setpassword(e.target.value) }} />
-                        <button className="btn btn-primary mt-3" onClick={Login}>Login</button>
+                           <p  className="pclass" style={{ textAlign: 'right' }}>Forgot Password?</p>
+                       <div className=" btnstyle"> 
+                       
+                       <button className="btn btn-primary mt-3" onClick={Login}>Login</button>
+                       </div>
                     </div>
+
                 </div>
 
             </div>
@@ -73,4 +78,4 @@ function Farmerlogin() {
     )
 }
 
-export default Farmerlogin;
+export default UserLogin;
