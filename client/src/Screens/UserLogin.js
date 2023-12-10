@@ -68,7 +68,7 @@ const UserLogin = () => {
                                 <button className="btn btn-primary mt-3" type="submit">Login</button>
 
                                 <p className="mt-2">
-                                    Don't have an account? <Link to="/loginuser">Sign up</Link>
+                                    Don't have an account? <Link to="/registeruser">Sign up</Link>
                                 </p>
                             </div>
 
