@@ -7,7 +7,7 @@ import UserLogin from './Screens/UserLogin';
 import Upload from './Screens/Upload';
 import Adminlogin from './Screens/Adminlogin';
 import Adminregistration from './Screens/Adminregistration';
-//import Adminscreen from './Screens/Adminscreen';
+import Admindashboard from './Screens/Adminsdashboard';
 
 
 function App() {
@@ -21,7 +21,8 @@ function App() {
           <Route path='/loginuser' element={<UserLogin />} />
           <Route path='/upload' element={<Upload />} />
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
-          <Route path = "/registeruseradmin" element = {<Adminregistration/>} />   
+          <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
+          <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
         
         
         
