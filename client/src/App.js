@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import RegisterUser from './Screens/RegisterUser';
 import UserLogin from './Screens/UserLogin';
+import Upload from './Screens/Upload';
+import Adminlogin from './Screens/Adminlogin';
+import Adminregistration from './Screens/Adminregistration';
+//import Adminscreen from './Screens/Adminscreen';
+
 
 function App() {
   return (
@@ -14,6 +19,13 @@ function App() {
         <Routes>
           <Route path='/registeruser' element={<RegisterUser />} />
           <Route path='/loginuser' element={<UserLogin />} />
+          <Route path='/upload' element={<Upload />} />
+          <Route path = "/loginadmin" element={<Adminlogin/>}/>
+          <Route path = "/registeruseradmin" element = {<Adminregistration/>} />   
+        
+        
+        
+
         </Routes>
       </Router>
 
@@ -21,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
