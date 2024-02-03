@@ -12,22 +12,39 @@ const RegisterUser = () => {
   const [password, setPassword] = useState('');
   const [cpassword, setcpassword] = useState('');
 
-  const [loading, setloading] = useState(false);
-  const [error, seterror] = useState(false);
-  const [success, setsuccess] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState();
 
 
 
   // Function to handle form submission
-  const handleRegistration = (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
-    // Perform registration logic here (e.g., API call)
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Reset the form fields after submission
-    setEmail('');
-    setPassword('');
-  };
+    setLoading(true);
+
+    try {
+        const response = await axios.post("/api/users/registeruser", {
+            // Pass user registration details to the backend
+            name: email,
+            password: password,
+            // Add other user details if needed
+        });
+
+        // Handle the response as needed
+        if (response.data) {
+            setSuccess(true);
+            setLoading(false);
+        } else {
+            setError(true);
+            setLoading(false);
+        }
+    } catch (error) {
+        setError(true);
+        setLoading(false);
+        console.error("Registration error:", error);
+    }
+};
 
   return (
     <div>
