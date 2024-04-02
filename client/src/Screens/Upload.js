@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 
-import Loader from "../Components/Loader";
 import Error from "../Components/Error";
+import Loader from "../Components/Loader";
 import Success from "../Components/Success";
-import { Link } from "react-router-dom";
 
 const Upload = () => {
   const [files, setFiles] = useState(null);
@@ -74,7 +72,7 @@ const Upload = () => {
               {error && <Error />}
               <div className="form-group">
                 <h2 className="mb-4" align="center">
-                  New Upload
+                  DocDrop
                 </h2>
                 <input
                   type="file"
