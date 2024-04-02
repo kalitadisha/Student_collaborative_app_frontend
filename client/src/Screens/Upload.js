@@ -6,17 +6,17 @@ import Success from "../Components/Success";
 
 const Upload = () => {
   const [files, setFiles] = useState(null);
-  const [upload, setUpload] = useState('');
-  const [topic, setTopic] = useState('');
-  const [branch, setBranch] = useState('');
-  const [semester, setSemester] = useState('');
-  const [typeofdoc, setTypeofdoc] = useState('');
-  const [otherTypeofdoc, setOtherTypeofdoc] = useState('');
-  const [tags, setTags] = useState('');
-  const [visibility, setVisibility] = useState('');
-  const [loading, setloading] = useState(false);
-  const [error, seterror] = useState(false);
-  const [success, setsuccess] = useState();
+  const [upload, setUpload] = useState("");
+  const [topic, setTopic] = useState("");
+  const [branch, setBranch] = useState("");
+  const [semester, setSemester] = useState("");
+  const [typeofdoc, setTypeofdoc] = useState("");
+  const [otherTypeofdoc, setOtherTypeofdoc] = useState("");
+  const [tags, setTags] = useState("");
+  const [visibility, setVisibility] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const branches = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
   const semesters = ["CSE", "Mechanical", "Electrical", "Civil", "Instrumentation"];
   const visibilityOptions = ["Public", "Private"];
@@ -39,25 +39,25 @@ const Upload = () => {
       formData.append(`file${i + 1}`, files[i]);
     }
 
-    formData.append('upload', upload);
-    formData.append('topic', topic);
-    formData.append('branch', branch);
-    formData.append('semester', semester);
-    formData.append('typeofdoc', typeofdoc === 'Others' ? otherTypeofdoc : typeofdoc);
-    formData.append('tags', tags);
-    formData.append('visibility', visibility);
+    formData.append("upload", upload);
+    formData.append("topic", topic);
+    formData.append("branch", branch);
+    formData.append("semester", semester);
+    formData.append("typeofdoc", typeofdoc === "Others" ? otherTypeofdoc : typeofdoc);
+    formData.append("tags", tags);
+    formData.append("visibility", visibility);
 
-    console.log('FormData:', formData);
+    console.log("FormData:", formData);
 
     setFiles(null);
-    setUpload('');
-    setTopic('');
-    setBranch('');
-    setSemester('');
-    setTypeofdoc('');
-    setTags('');
-    setVisibility('');
-    setOtherTypeofdoc('');
+    setUpload("");
+    setTopic("");
+    setBranch("");
+    setSemester("");
+    setTypeofdoc("");
+    setTags("");
+    setVisibility("");
+    setOtherTypeofdoc("");
   };
 
   return (
@@ -66,7 +66,7 @@ const Upload = () => {
 
       <div className="row justify-content-center mt-5">
         <div className="col-md-5 mt-5">
-          {success && <Success message='Registration Successful!' />}
+          {success && <Success message="Registration Successful!" />}
           <form onSubmit={handleRegistration}>
             <div className="bs">
               {error && <Error />}
@@ -148,9 +148,9 @@ const Upload = () => {
                       {option}
                     </option>
                   ))}
-                  <option value="Others">Others</option>
+                  <option value="Others">Research Paper</option>
                 </select>
-                {typeofdoc === 'Others' && (
+                {typeofdoc === "Others" && (
                   <input
                     type="text"
                     className="form-control"
@@ -197,4 +197,4 @@ const Upload = () => {
   );
 };
 
-export default Upload; 
+export default Upload;
