@@ -17,8 +17,8 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const branches = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
-  const semesters = ["CSE", "Mechanical", "Electrical", "Civil", "Instrumentation"];
+  const branches = ["CSE", "Mechanical", "Electrical", "Civil", "Instrumentation"];
+  const semesters = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
   const visibilityOptions = ["Public", "Private"];
   const typeofdocOptions = ["PDF", "Notes", "Report", "Others"];
 
