@@ -4,28 +4,46 @@ import axios from "axios";
 import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import Success from "../Components/Success";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const UserLogin = () => {
     // State variables for email and password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [loading, setloading] = useState(false);
-    const [error, seterror] = useState(false);
-    const [success, setsuccess] = useState();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState();
+
+    //const history = useHistory();
+
 
 
     
     // Function to handle form submission
-    const handleRegistration = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Perform registration logic here (e.g., API call)
-        console.log('Email:', email);
-        console.log('Password:', password);
-        // Reset the form fields after submission
-        setEmail('');
-        setPassword('');
+        setLoading(true);
+        try {
+            const response = await axios.post("/api/users/loginuser", {
+                name: email,  // Assuming your backend expects 'name' for email
+                password: password
+            });
+            // Assuming your backend sends a success message or user details upon successful login
+            if (response.data) {
+                setSuccess(true);
+                setLoading(false);
+                // Redirect to the desired page after successful login
+                //history.push("/dashboard");  // Change '/dashboard' to the desired path
+            } else {
+                setError(true);
+                setLoading(false);
+            }
+        } catch (error) {
+            setError(true);
+            setLoading(false);
+            console.error("Login error:", error);
+        }
     };
 
     return (
@@ -65,7 +83,7 @@ const UserLogin = () => {
                                 <p className="mt-2" style={{textAlign:'right'}} >
                                     <Link to="/loginuser">Forgot password? </Link>
                                 </p>
-                                <button className="btn btn-primary mt-3" type="submit">Login</button>
+                                <button className="btn btn-primary mt-3" type="submit" onClick={handleLogin}>Login</button>
 
                                 <p className="mt-2">
                                     Don't have an account? <Link to="/registeruser">Sign up</Link>
