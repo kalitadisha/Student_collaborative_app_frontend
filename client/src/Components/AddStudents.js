@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Loader from "../Components/Loader";
-import Error from "../Components/Error";
-import Success from "../Components/Success";
+import React, { useEffect, useRef, useState } from 'react';
 import Swal from 'sweetalert2';
+import Error from "../Components/Error";
+import Loader from "../Components/Loader";
+import Success from "../Components/Success";
 
 function AddStudents(props) {
   const formRef = useRef(null);
@@ -94,7 +94,7 @@ function AddStudents(props) {
 
     try {
       setloading(true);
-      const response = await axios.post('/api/farmers/addfarmers', farmer, {
+      const response = await axios.post('/api/students/addstudents', farmer, {
         headers: {
           'Content-Type': 'application/json',
         },
