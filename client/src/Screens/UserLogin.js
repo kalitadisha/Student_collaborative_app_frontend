@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 
-import Loader from "../Components/Loader";
+import { Link } from "react-router-dom";
 import Error from "../Components/Error";
+import Loader from "../Components/Loader";
 import Success from "../Components/Success";
-import { Link, useHistory } from "react-router-dom";
 
 const UserLogin = () => {
     // State variables for email and password
@@ -25,7 +25,7 @@ const UserLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/users/loginuser", {
+            const response = await axios.post("/api/auth/loginuser", {
                 name: email,  // Assuming your backend expects 'name' for email
                 password: password
             });

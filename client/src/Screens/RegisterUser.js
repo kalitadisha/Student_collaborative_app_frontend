@@ -1,13 +1,14 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 
-import Loader from "../Components/Loader";
-import Error from "../Components/Error";
-import Success from "../Components/Success";
 import { Link } from "react-router-dom";
+import Error from "../Components/Error";
+import Loader from "../Components/Loader";
+import Success from "../Components/Success";
 
 const RegisterUser = () => {
   // State variables for email and password
+  //const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setcpassword] = useState('');
@@ -24,9 +25,10 @@ const RegisterUser = () => {
     setLoading(true);
 
     try {
-        const response = await axios.post("/api/users/registeruser", {
+        const response = await axios.post("/api/auth/registeruser", {
             // Pass user registration details to the backend
-            name: email,
+            //name: username,
+            email: email ,
             password: password,
             // Add other user details if needed
         });
@@ -61,6 +63,7 @@ const RegisterUser = () => {
 
               <div className="form-group" >
                 <h2 className="mb-4" align="center">Registration</h2>
+                
                 <input
                   type="email"
                   className="form-control"
