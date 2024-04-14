@@ -24,7 +24,7 @@ const RegisterUser = () => {
     setLoading(true);
 
     try {
-        const response = await axios.post("/api/users/registeruser", {
+        const response = await axios.post("/users/registeruser", {
             // Pass user registration details to the backend
             name: email,
             password: password,
@@ -49,6 +49,7 @@ const RegisterUser = () => {
   return (
     <div>
       {loading && (<Loader />)}
+      {error && (<Error />)}
 
       <div className="row justify-content-center mt-5">
         <div className="col-md-5 mt-5">
@@ -57,7 +58,7 @@ const RegisterUser = () => {
 
             <div className="bs" >
 
-              {error && (<Error />)}
+              
 
               <div className="form-group" >
                 <h2 className="mb-4" align="center">Registration</h2>
