@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Error from "../Components/Error";
 import Loader from "../Components/Loader";
 import Success from "../Components/Success";
+import { BACKEND_URL } from '../Config/constants';
 
 const UserLogin = () => {
     // State variables for email and password
@@ -16,7 +16,8 @@ const UserLogin = () => {
     const [success, setSuccess] = useState();
 
     //const history = useHistory();
-
+    console.log("Backend URL:", BACKEND_URL);
+    const navigate = useNavigate();
 
 
     
@@ -25,16 +26,20 @@ const UserLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/auth/loginuser", {
-                name: email,  // Assuming your backend expects 'name' for email
+            const response = await axios.post("/api/users/loginuser", {
+                email: email,  // Assuming your backend expects 'name' for email
                 password: password
             });
             // Assuming your backend sends a success message or user details upon successful login
-            if (response.data) {
-                setSuccess(true);
+            if (response.status === 200) {
+                setSuccess('Login Successful!');
                 setLoading(false);
+
+                setEmail('');
+                setPassword('');
+                navigate('/upload');
                 // Redirect to the desired page after successful login
-                //history.push("/dashboard");  // Change '/dashboard' to the desired path
+                
             } else {
                 setError(true);
                 setLoading(false);
