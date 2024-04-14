@@ -19,7 +19,7 @@ const UserLogin = () => {
 
 
 
-
+    
     // Function to handle form submission
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -61,22 +61,22 @@ const UserLogin = () => {
                             
 
                             <div className="form-group" >
-                                <h2 className="mb-4" align="center">Login</h2>
-                                <input
+                        <h2 className="mb-4" align="center">Login</h2>
+                        <input
                                     type="email"
                                     className="form-control"
                                     placeholder="email"
-                                    value={email}
+                            value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
 
 
-                                <input
+                        <input
                                     type="password"
                                     className="form-control"
                                     placeholder="password"
-                                    value={password}
+                            value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
@@ -93,7 +93,7 @@ const UserLogin = () => {
 
 
 
-                        </div>
+                    </div>
 
                     
                 </div>
