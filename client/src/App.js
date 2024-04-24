@@ -1,13 +1,13 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import RegisterUser from './Screens/RegisterUser';
-import UserLogin from './Screens/UserLogin';
-import Upload from './Screens/Upload';
 import Adminlogin from './Screens/Adminlogin';
 import Adminregistration from './Screens/Adminregistration';
 import Admindashboard from './Screens/Adminsdashboard';
+import RegisterUser from './Screens/RegisterUser';
+import Upload from './Screens/Upload';
+import UserLogin from './Screens/UserLogin';
 
 
 function App() {
