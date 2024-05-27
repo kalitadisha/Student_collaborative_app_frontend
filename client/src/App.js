@@ -8,6 +8,7 @@ import Admindashboard from './Screens/Adminsdashboard';
 import RegisterUser from './Screens/RegisterUser';
 import Upload from './Screens/Upload';
 import UserLogin from './Screens/UserLogin';
+import Profile from "./pages/profile/Profile";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path='/registeruser' element={<RegisterUser />} />
           <Route path='/loginuser' element={<UserLogin />} />
           <Route path='/upload' element={<Upload />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
