@@ -1,4 +1,241 @@
-import React, { useState } from "react";
+//import axios from 'axios'; // For making HTTP requests
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../Services/api';
+
+const Upload = () => {
+  const [uploaderId, setUploaderId] = useState('');
+  const [topic, setTopic] = useState('');
+  const [branch, setBranch] = useState('COMPUTER_SCIENCE');
+  const [semester, setSemester] = useState('SEMESTER_1');
+  const [documentType, setDocumentType] = useState('NOTES');
+  const [tags, setTags] = useState('');
+  const [files, setFiles] = useState(null);
+  const [downloadEnable, setDownloadEnable] = useState(false);
+  const [commentEnable, setCommentEnable] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    // Create FormData object to handle file upload
+    const formData = new FormData();
+    formData.append('uploaderId', uploaderId);
+    formData.append('topic', topic);
+    formData.append('branch', branch);
+    formData.append('semester', semester);
+    formData.append('documentType', documentType);
+    formData.append('tags', tags);
+    formData.append('files', files);
+    formData.append('downloadEnable', downloadEnable);
+    formData.append('commentEnable', commentEnable);
+
+    try {
+      const response = await api.createUpload(formData);
+      if (response.status === 200){
+        setSuccessMessage('Upload successful!');
+        setLoading(false);
+        navigate('/profile');
+
+       
+        // Clear form fields after Upload successful 
+        setUploaderId('')
+        setTopic('');
+        setBranch('COMPUTER_SCIENCE');
+        setSemester('SEMESTER_1');
+        setDocumentType('NOTES');
+        setTags('');
+        setFiles(null);
+        setDownloadEnable(false);
+        setCommentEnable(false);
+
+
+      }
+      
+    } catch (error) {
+      setErrorMessage('An error occurred while uploading.');
+      console.error('Upload error:', error);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: '500px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+      <h2 style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px' }}>DocDrop: Upload Page</h2>
+      {errorMessage && <p style={{ marginTop: '10px', padding: '10px', borderRadius: '3px', backgroundColor: '#ffcccc' }}>{errorMessage}</p>}
+      {successMessage && <p style={{ marginTop: '10px', padding: '10px', borderRadius: '3px', backgroundColor: '#ccffcc' }}>{successMessage}</p>}
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="uploaderId" style={{ display: 'block', marginBottom: '5px' }}>Uploader ID:</label>
+          <input type="number" id="uploaderId" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={uploaderId} onChange={(e) => setUploaderId(e.target.value)} required />
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="topic" style={{ display: 'block', marginBottom: '5px' }}>Topic:</label>
+          <input type="text" id="topic" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={topic} onChange={(e) => setTopic(e.target.value)} required />
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="branch" style={{ display: 'block', marginBottom: '5px' }}>Branch:</label>
+          <select id="branch" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={branch} onChange={(e) => setBranch(e.target.value)} required>
+            
+              <option value="COMPUTER_SCIENCE">Computer Science</option>
+              <option value="CIVIL">Civil</option>
+              <option value="MECHANICAL">Mechanical</option>
+              <option value="ELECTRICAL">Electrical</option>
+              <option value="INSTRUMENTATION">Instrumentation</option>
+            
+          </select>
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+        <label htmlFor="semester" style={{ display: 'block', marginBottom: '5px' }}>Semester:</label>
+        <select id="semester" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={semester} onChange={(e) => setSemester(e.target.value)} required>
+
+              <option value="SEMESTER_1">1st Semester</option>
+              <option value="SEMESTER_2">2nd Semester</option>
+              <option value="SEMESTER_3">3rd Semester</option>
+              <option value="SEMESTER_4">4th Semester</option>
+              <option value="SEMESTER_5">5th Semester</option>
+              <option value="SEMESTER_6">6th Semester</option>
+              <option value="SEMESTER_7">7th Semester</option>
+              <option value="SEMESTER_8">8th Semester</option>
+        </select>
+
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+        <label htmlFor="documentType" style={{ display: 'block', marginBottom: '5px' }}>Document Type:</label>
+        <select id="documentType" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={documentType} onChange={(e) => setDocumentType(e.target.value)} required>
+          <option value="NOTES">Notes</option>
+          <option value="ASSIGNMENTS">Assignments</option>
+          <option value="LECTURES">Lectures</option>
+          <option value="RESEARCH_PAPER">Research Paper</option>
+          <option value="PROJECT_FILES">Project Files</option>         
+          <option value="OTHERS">Others</option>
+        </select>
+        </div>
+
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="tags" style={{ display: 'block', marginBottom: '5px' }}>Tags:</label>
+          <input type="text" id="tags" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={tags} onChange={(e) => setTags(e.target.value)} />
+
+        </div>
+
+
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="files" style={{ display: 'block', marginBottom: '5px' }}>Files:</label>
+          <input type="file" id="files" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} onChange={(e) => setFiles(e.target.files[0])} required/>
+        </div>
+
+
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="downloadEnable" style={{ display: 'block', marginBottom: '5px' }}>Download Enable:</label>
+          <select id="downloadEnable" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={downloadEnable} onChange={(e) => setDownloadEnable(e.target.value)}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+
+
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="commentEnable" style={{ display: 'block', marginBottom: '5px' }}>Comment Enable:</label>
+          <select id="commentEnable" style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px' }} value={commentEnable} onChange={(e) => setCommentEnable(e.target.value)}>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+
+        
+        <div style={{ marginBottom: '15px' }}>
+          <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer' }}>Upload</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+export default Upload;
+    /*<div>
+      <h2>DocDrop:Upload Page</h2>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Uploader ID:
+          <input type="number" value={uploaderId} onChange={(e) => setUploaderId(e.target.value)} />
+        </label>
+        <br />
+        <label>
+          Topic:
+          <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
+        </label>
+        <br />
+        <label>
+          Branch:
+          <select value={branch} onChange={(e) => setBranch(e.target.value)}>
+            <option value="COMPUTER_SCIENCE">Computer Science</option>
+            <option value="CIVIL">Civil</option>
+            <option value="MECHANICAL">Mechanical</option>
+            <option value="ELECTRICAL">Electrical</option>
+            <option value="INSTRUMENTATION">Instrumentation</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          Semester:
+          <select value={semester} onChange={(e) => setSemester(e.target.value)}>
+            <option value="SEMESTER_1">Semester 1</option>
+            <option value="SEMESTER_2">Semester 2</option>
+            <option value="SEMESTER_3">Semester 3</option>
+            <option value="SEMESTER_4">Semester 4</option>
+            <option value="SEMESTER_5">Semester 5</option>
+            <option value="SEMESTER_6">Semester 6</option>
+            <option value="SEMESTER_7">Semester 7</option>
+            <option value="SEMESTER_8">Semester 8</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          Document Type:
+          <select value={documentType} onChange={(e) => setDocumentType(e.target.value)}>
+            <option value="NOTES">Notes</option>
+            <option value="RESEARCH_PAPER">Research Paper</option>
+            <option value="PROJECT_FILES">Project Files</option>
+            <option value="PYQs">PYQs</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          Tags:
+          <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
+        </label>
+        <br />
+        <label>
+          Files:
+          <input type="file" value={files} onChange={(e) => setFiles(e.target.files[0])} />
+        </label>
+        <br />
+        <label>
+          Download Enable:
+          <input type="checkbox" checked={downloadEnable} onChange={(e) => setDownloadEnable(e.target.checked)} />
+        </label>
+        <br />
+        <label>
+          Comment Enable:
+          <input type="checkbox" checked={commentEnable} onChange={(e) => setCommentEnable(e.target.checked)} />
+        </label>
+        <br />
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+  );
+};
+
+
+
+/*import React, { useState } from "react";
 
 import Error from "../Components/Error";
 import Loader from "../Components/Loader";
@@ -198,3 +435,4 @@ const Upload = () => {
 };
 
 export default Upload;
+*/

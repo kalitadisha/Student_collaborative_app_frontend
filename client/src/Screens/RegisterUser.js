@@ -36,11 +36,7 @@ const RegisterUser = () => {
     }
 
     try {
-                  const userData = {
-                    id: id,
-                    emailId: emailId,
-                    password: password
-                  };
+                  
 
                   // Check if the ID is unique
                   const isIdUnique = await api.checkIdUnique(id);
@@ -64,17 +60,20 @@ const RegisterUser = () => {
                     return;
                   }
 
+                  const userData = {
+                    id: id,
+                    emailId: emailId,
+                    password: password
+                  };
+
                 
                     const response = await api.registerUser(userData);
-                    //if (response.status === 200)
-                    if (response.ok) {
+                    if (response.status === 200)
+                     {
                       setSuccess('Registration Successful!');
                       setLoading(false);
                       navigate('/loginuser'); 
-                      // Redirect to the login page after successful registration
-                      // Clear error state
-                    //setError('');
-                    
+                      
                       // Clear form fields after successful registration
                     setId('')
                     setEmailId('');
@@ -91,14 +90,7 @@ const RegisterUser = () => {
                   // Handle error
                   setError('An error occurred during registration. Please try again later.');
                   setLoading(false);
-                  //throw error;
-                  // Handle error
-                  /*setLoading(false);
-                  if (error.response && error.response.data && error.response.data.message) {
-                    setError(error.response.data.message);
-                  } else {
-                    setError('An error occurred during user registration. Please try again later.');
-                  }*/
+                  
                   
   }
 };
@@ -126,7 +118,7 @@ return (
                               }}
                               required
                           />
-                          {/* Display ID uniqueness error message */}
+                          {/* Error message for ID uniqueness */}
                           {idError && <div style={{ color: 'red' }} className="text-danger">{idError}</div>} 
                           </div>
                           
