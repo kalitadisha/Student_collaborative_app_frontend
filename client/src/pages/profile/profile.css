@@ -58,3 +58,86 @@
 .profileRightBottom {
     display: flex;
 }
+
+/* profile.css */
+
+/* General styles */
+
+/* Styles for large screens (desktops) */
+@media (min-width: 1024px) {
+    /* Add your existing styles for large screens here */
+  }
+  
+  /* Styles for medium screens (tablets) */
+  @media (max-width: 1023px) {
+    .expandSidebarButton {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        z-index: 999; /* Ensure the button is above other elements */
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #ffffff;
+        border-radius: 50%;
+        padding: 8px;
+      }
+
+      .expandSidebarButton svg {
+        width: 16px;
+        height: 16px;
+        fill: #333;
+      }
+
+    .profile {
+      padding-top: 60px; /* Adjust as needed */
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .profileRight {
+      max-width: 100%;
+      width: 100%;
+    }
+  
+    .profileRightTop {
+      width: 100%;
+    }
+  
+    .profileRightBottom {
+      width: 100%;
+    }
+  
+    /* Hide the sidebar by default */
+    .sidebar {
+      display: none;
+    }
+  
+    /* Style the expand button */
+    .expandSidebarButton {
+      display: block;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  
+    /* Show the sidebar when expanded */
+    .expandSidebarButton.expanded + .sidebar {
+      display: block;
+    }
+  
+    /* Other styles for medium screens */
+  }
+  
+  /* Styles for small screens (mobile devices) */
+  @media (max-width: 767px) {
+    /* Adjustments for the profile section */
+    .profile {
+      padding-top: 40px; /* Adjust as needed */
+    }
+  
+    /* Other styles for small screens */
+  }
+
+  

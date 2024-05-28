@@ -5,6 +5,7 @@ import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import { Link } from "react-router-dom";
 import "./LoginAdmin.css"; // Import the CSS file
+import Topbar from "../ccomponents/topbar/Topbar";
 
 function LoginAdmin() {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,9 @@ function LoginAdmin() {
   };
 
   return (
+
     <div>
+      <Topbar/>
       <h1>Admin Login</h1>
       <form onSubmit={handleSubmit}>
         {loading && <Loader />}

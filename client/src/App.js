@@ -9,23 +9,26 @@ import RegisterUser from './Screens/RegisterUser';
 import Upload from './Screens/Upload';
 import UserLogin from './Screens/UserLogin';
 import Profile from "./pages/profile/Profile";
+import Home from "./pages/Home/Home";
+import Profilepage from "./Screens/Profilepage";
 
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      
 
       <Router>
         <Routes>
           <Route path='/registeruser' element={<RegisterUser />} />
           <Route path='/loginuser' element={<UserLogin />} />
           <Route path='/upload' element={<Upload />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/' element={<Profile />} />
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
-        
+          
+          <Route path='/profile' element={<Profilepage />} />
         
         
 

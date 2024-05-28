@@ -5,6 +5,7 @@ import Loader from "../Components/Loader";
 import Success from "../Components/Success";
 //import { BACKEND_URL } from '../Config/constants';
 import api from '../Services/api';
+import Topbar from "../ccomponents/topbar/Topbar";
 
 const UserLogin = () => {
     // State variables for email and password
@@ -60,6 +61,7 @@ const UserLogin = () => {
     };
     return (
         <div>
+            <Topbar/>
             {loading && <Loader />}
             <div className="row justify-content-center mt-5">
                 <div className="col-md-5 mt-5">

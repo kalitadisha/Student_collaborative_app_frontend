@@ -97,3 +97,28 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+.topbarProfile {
+  position: relative;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 50px; /* Adjust based on your image size */
+  right: 0;
+  background-color: #1877f2;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdownItem {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdownItem:hover {
+  background-color: #000000;
+}

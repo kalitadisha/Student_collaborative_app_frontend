@@ -5,6 +5,7 @@ import Loader from "../Components/Loader";
 import Success from "../Components/Success";
 //import { BACKEND_URL } from '../Config/constants';
 import api from '../Services/api';
+import Topbar from "../ccomponents/topbar/Topbar";
 
 const RegisterUser = () => {
   // State variables for email and password
@@ -96,6 +97,7 @@ const RegisterUser = () => {
 };
 return (
   <div>
+    <Topbar/>
       {loading && <Loader />}
       <h1>User Registration</h1>
       {error && <Error message={error} />}
