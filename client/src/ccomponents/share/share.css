@@ -1,6 +1,8 @@
 .share {
   width: 100%;
-  height: 170px;
+  height: auto; /* Changed height to auto */
+  max-height: 170px; /* Added max-height */
+  overflow-y: auto; /* Added overflow-y to enable scrolling if content exceeds max-height */
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -8,6 +10,8 @@
 
 .shareWrapper {
   padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
 .shareTop {
@@ -33,45 +37,107 @@
 }
 
 .shareHr {
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .shareBottom {
   display: flex;
+  flex-direction: column; /* Changed to column */
+}
+
+.shareOptions {
+  display: flex;
+  margin-left: 20px;
+}
+
+.shareOption {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
+  margin-right: 15px;
+  cursor: pointer;
 }
 
-.shareOptions{
-    display: flex;
-    margin-left: 20px;
+.shareIcon {
+  font-size: 18px;
+  margin-right: 3px;
 }
 
-.shareOption{
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-    cursor: pointer;
+.shareOptionText {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.shareIcon{
-    font-size: 18px;
-    margin-right: 3px;
+.commentInputContainer,
+.replyInputContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.shareOptionText{
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
+.commentInput,
+.replyInput {
+  width: calc(100% - 40px);
+  padding: 5px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.shareButton{
-    border: none;
-    padding: 7px;
-    border-radius: 5px;
-    background-color: green;
-    font-weight: 500;
-    margin-right: 20px;
-    cursor: pointer;
-    color: white;
+.sendIcon {
+  cursor: pointer;
+  color: blue;
+}
+
+.commentsSection {
+  margin-top: 20px;
+}
+
+.comment {
+  margin-top: 10px;
+}
+
+.commentText {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.commentActions {
+  margin-top: 5px;
+}
+
+.replyLink {
+  font-size: 12px;
+  color: blue;
+  cursor: pointer;
+}
+
+.replies {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.ratingStar {
+  cursor: pointer;
+}
+
+.shareButton {
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: green;
+  font-weight: 500;
+  margin-right: 20px;
+  cursor: pointer;
+  color: white;
 }
