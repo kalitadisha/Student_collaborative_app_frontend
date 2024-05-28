@@ -17,7 +17,7 @@ function Navbar() {
                     <li class="nav-item">
                         <a class="nav-link" href="/loginuser">Login</a>
                     </li>
-                    
+                     
                 </ul>
             </div>
         </nav>

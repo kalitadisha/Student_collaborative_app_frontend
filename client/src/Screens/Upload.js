@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../Services/api';
+import Topbar from "../ccomponents/topbar/Topbar";
 
 const Upload = () => {
   const [uploaderId, setUploaderId] = useState('');
@@ -66,7 +67,10 @@ const Upload = () => {
   };
 
   return (
+    <div>
+      <Topbar/>
     <div style={{ maxWidth: '500px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+      
       <h2 style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px' }}>DocDrop: Upload Page</h2>
       {errorMessage && <p style={{ marginTop: '10px', padding: '10px', borderRadius: '3px', backgroundColor: '#ffcccc' }}>{errorMessage}</p>}
       {successMessage && <p style={{ marginTop: '10px', padding: '10px', borderRadius: '3px', backgroundColor: '#ccffcc' }}>{successMessage}</p>}
@@ -153,6 +157,7 @@ const Upload = () => {
           <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer' }}>Upload</button>
         </div>
       </form>
+    </div>
     </div>
   );
 };

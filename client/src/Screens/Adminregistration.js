@@ -5,6 +5,7 @@ import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import Success from "../Components/Success";
 import { Link } from "react-router-dom";
+import Topbar from "../ccomponents/topbar/Topbar";
 
 function Adminregistration() {
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,7 @@ function Adminregistration() {
 
   return (
     <div>
+      <Topbar/>
       <h1>Admin Registration</h1>
       <form onSubmit={handleSubmit}>
         {loading && <Loader />}

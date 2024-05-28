@@ -7,6 +7,7 @@ import AddStudents from "../Components/AddStudents";
 import AdminDetails from "../Components/AdminDetails";
 import StatisticsTab from "../Components/StatisticsTab";
 import { Link } from "react-router-dom";
+import Topbar from '../ccomponents/topbar/Topbar';
 
 const { Header, Content, Sider } = Layout;
 
@@ -58,6 +59,7 @@ function Admindashboard() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <Topbar/>
       <Sider theme="dark" width={150}>
         {loading && <div>Loading...</div>}
         {error && <div>Error fetching data.</div>}
