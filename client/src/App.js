@@ -23,11 +23,11 @@ function App() {
           <Route path='/registeruser' element={<RegisterUser />} />
           <Route path='/loginuser' element={<UserLogin />} />
           <Route path='/upload' element={<Upload />} />
-          <Route path='/pro' element={<Profile />} />
+          <Route path='/' element={<Profile />} />
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
-          <Route path= "/" element={<Home/>}/> 
+          
           <Route path='/profile' element={<Profilepage />} />
         
         
