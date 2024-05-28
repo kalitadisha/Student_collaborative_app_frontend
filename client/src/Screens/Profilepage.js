@@ -1,5 +1,10 @@
 // ProfilePage.js
 import React, { useState, useRef, useEffect } from 'react';
+import { PermMedia } from "@mui/icons-material";
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import ShareIcon from '@mui/icons-material/Share';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import SendIcon from '@mui/icons-material/Send';
 import Feed from "../ccomponents/feed/Feed";
 import Rightbar from "../ccomponents/rightbar/Rightbar";
 import Sidebar from "../ccomponents/sidebar/Sidebar";
@@ -11,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faComment } from '@fortawesome/free-solid-svg-icons';
 import '../css/ProfilepageCss.css';
 import Navbar from '../Components/Navbar';
+import img from "../assets/person/user.png";
 
 
 const ProfilePage = () => {
@@ -169,129 +175,142 @@ const Collaborations = ({ collaborationPosts }) => {
 
 const Post = ({ post }) => {
   const { content, collaborators } = post;
-  const [likes, setLikes] = useState(0);
-  const [hasLiked, setHasLiked] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
-  const [showComments, setShowComments] = useState(false);
-  const [replyTo, setReplyTo] = useState({ commentIndex: null, replyIndex: null });
-
-  const addComment = () => {
-    setComments([...comments, { text: newComment, replies: [] }]);
-    setNewComment('');
-  };
-
   
-  const getTotalCommentsCount = (comments) => {
-    let totalCount = comments.length; // Add top-level comments
-    comments.forEach(comment => {
-      totalCount += comment.replies.length; // Add replies count for each comment
-      comment.replies.forEach(reply => {
-        totalCount += getTotalCommentsCount(reply.replies); // Recursively add replies count
-      });
+  const [commentVisible, setCommentVisible] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [commentInput, setCommentInput] = useState('');
+  const [rating, setRating] = useState(0);
+  const [workAdded, setWorkAdded] = useState(false);
+  const [postContent, setPostContent] = useState('');
+
+  const handleCommentInputChange = (e) => {
+    setCommentInput(e.target.value);
+  };
+
+  const handleRatingChange = (newRating) => {
+    setRating(prevRating => prevRating === newRating ? 0 : newRating);
+  };
+
+  const handleShare = () => {
+    const link = 'http://yourwebsite.com/post/123'; // Example link
+    navigator.clipboard.writeText(link).then(() => {
+      alert('Link copied to clipboard!');
+    }).catch(() => {
+      alert('Failed to copy the link');
     });
-    return totalCount;
   };
 
-  const totalCount = getTotalCommentsCount(comments);
+  const handlePostContentChange = (e) => {
+    setPostContent(e.target.value);
+  };
 
-  const addReply = (commentIndex, replyText, replyIndex = null) => {
-    const updatedComments = [...comments];
-    if (replyIndex === null) {
-      updatedComments[commentIndex].replies.push({ text: replyText, replies: [] });
-    } else if (typeof replyIndex === 'number') {
-      updatedComments[commentIndex].replies[replyIndex].replies.push({ text: replyText, replies: [] });
-    } else {
-      const indices = replyIndex.split('-').map(Number);
-      let currentReply = updatedComments[commentIndex].replies[indices[0]];
-      for (let i = 1; i < indices.length; i++) {
-        currentReply = currentReply.replies[indices[i]];
-      }
-      currentReply.replies.push({ text: replyText, replies: [] });
+  const handleFileChange = (e) => {
+    if (1) {
+      setWorkAdded(true);
     }
-    setComments(updatedComments);
   };
 
-  const handleLike = () => {
-    setLikes(hasLiked ? likes - 1 : likes + 1);
-    setHasLiked(!hasLiked);
+  const getStarColor = (value) => {
+    if (rating === 0) return "gray";
+    if (rating === 1) return "red";
+    if (rating === 2) return "orange";
+    if (rating === 3) return "yellow";
+    if (rating >= 4) return "green";
+    return "gray";
   };
 
-  const renderReplies = (replies, commentIndex, parentReplyIndex = null) => {
-    return replies.map((reply, replyIndex) => (
-      <div key={replyIndex} className="reply">
-        <div className="reply-text">{reply.text}</div>
-        <div className="reply-link" onClick={() => setReplyTo({ commentIndex, replyIndex: parentReplyIndex !== null ? `${parentReplyIndex}-${replyIndex}` : replyIndex })}>
-          Reply
-        </div>
-        {replyTo.commentIndex === commentIndex && replyTo.replyIndex === (parentReplyIndex !== null ? `${parentReplyIndex}-${replyIndex}` : replyIndex) && (
-          <div className="reply-input">
-            <input
-              type="text"
-              placeholder="Write a reply..."
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  addReply(commentIndex, e.target.value, replyTo.replyIndex);
-                  setReplyTo({ commentIndex: null, replyIndex: null });
-                  e.target.value = '';
-                }
-              }}
-            />
-          </div>
-        )}
-        {renderReplies(reply.replies, commentIndex, parentReplyIndex !== null ? `${parentReplyIndex}-${replyIndex}` : replyIndex)}
-      </div>
-    ));
+  const toggleCommentVisibility = () => {
+    setCommentVisible(!commentVisible);
+  };
+
+  const handleCommentSubmit = () => {
+    if (commentInput.trim()) {
+      setComments([...comments, { text: commentInput, replies: [] }]);
+      setCommentInput('');
+    }
+  };
+
+  const handleReplySubmit = (index, replyText) => {
+    const newComments = [...comments];
+    newComments[index].replies.push({ text: replyText, replies: [] });
+    setComments(newComments);
   };
 
   return (
-    <div className="post">
-      <div className="post-content">{content}</div>
-      <div className="post-actions">
-        <button onClick={handleLike} className={hasLiked ? 'liked' : 'unliked'}>
-          <FontAwesomeIcon icon={faThumbsUp} /> {likes}
-        </button>
-        <button onClick={() => setShowComments(!showComments)}>
-          <FontAwesomeIcon icon={faComment} />{totalCount}
-        </button>
-      </div>
-      {showComments && (
-        <div className="comments-section">
-          {comments.map((comment, commentIndex) => (
-            <div key={commentIndex} className="comment">
-              <div className="comment-text">{comment.text}</div>
-              <div className="reply-link" onClick={() => setReplyTo({ commentIndex, replyIndex: null })}>
-                Reply
-              </div>
-              {replyTo.commentIndex === commentIndex && replyTo.replyIndex === null && (
-                <div className="reply-input">
-                  <input
-                    type="text"
-                    placeholder="Write a reply..."
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        addReply(commentIndex, e.target.value);
-                        setReplyTo({ commentIndex: null, replyIndex: null });
-                        e.target.value = '';
-                      }
-                    }}
-                  />
-                </div>
-              )}
-              {renderReplies(comment.replies, commentIndex)}
-            </div>
-          ))}
-          <div className="new-comment">
-            <input
-              type="text"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Add a comment"
-            />
-            <button onClick={addComment}>Post</button>
-          </div>
+    <div className="share">
+      <div className="shareWrapper">
+        <div className="shareTop">
+          
         </div>
-      )}
+        <hr className="shareHr" />
+        <div className="shareBottom">
+          <div className="shareOptions">
+            <div className="shareOption">
+              <input type="file" id="files" style={{ display: 'none' }} onChange={handleFileChange} />
+              
+              
+            </div>
+            <div
+              
+              onClick={toggleCommentVisibility}
+            >
+              <AddCommentIcon htmlColor={"blue"} className="shareIcon" />
+              <span className="shareOptionText">Comment</span>
+            </div>
+            <div className="shareOption ">
+              <StarBorderIcon htmlColor={getStarColor(1)} className="shareIcon" />
+              <span className="shareOptionText">Rate</span>
+              <div className="rating">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <StarBorderIcon 
+                    key={value}
+                    htmlColor={rating >= value ? getStarColor(value) : "gray"}
+                    className="ratingStar"
+                    onClick={() => handleRatingChange(value)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div
+              
+              onClick={() => handleShare()}
+            >
+              <ShareIcon htmlColor={"goldenrod"} className="shareIcon" />
+              <span className="shareOptionText">Share</span>
+            </div>
+          </div>
+          {commentVisible && (
+            <>
+              <div className="commentInputContainer">
+                <input
+                  type="text"
+                  value={commentInput}
+                  onChange={handleCommentInputChange}
+                  placeholder="Add a comment"
+                  className="commentInput"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleCommentSubmit();
+                  }}
+                />
+                <SendIcon
+                  className="sendIcon"
+                  onClick={handleCommentSubmit}
+                />
+              </div>
+              <div className="commentsSection">
+                {comments.map((comment, index) => (
+                  <Comment
+                    key={index}
+                    comment={comment}
+                    onReply={(replyText) => handleReplySubmit(index, replyText)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    
       {collaborators && (
         <div className="collaborators">
           Collaborated with:{' '}
@@ -303,6 +322,59 @@ const Post = ({ post }) => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
+
+const Comment = ({ comment, onReply }) => {
+  const [replyVisible, setReplyVisible] = useState(false);
+  const [replyInput, setReplyInput] = useState('');
+
+  const handleReplyInputChange = (e) => {
+    setReplyInput(e.target.value);
+  };
+
+  const handleReplySubmit = () => {
+    if (replyInput.trim()) {
+      onReply(replyInput);
+      setReplyInput('');
+      setReplyVisible(false);
+    }
+  };
+
+  return (
+    <div className="comment">
+      <div className="commentText">{comment.text}</div>
+      <div className="commentActions">
+        <span className="replyLink" onClick={() => setReplyVisible(!replyVisible)}>Reply</span>
+      </div>
+      {replyVisible && (
+        <div className="replyInputContainer">
+          <input
+            type="text"
+            value={replyInput}
+            onChange={handleReplyInputChange}
+            placeholder="Reply"
+            className="replyInput"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleReplySubmit();
+            }}
+          />
+          <SendIcon
+            className="sendIcon"
+            onClick={handleReplySubmit}
+          />
+        </div>
+      )}
+      <div className="replies">
+        {comment.replies.map((reply, index) => (
+          <Comment
+            key={index}
+            comment={reply}
+            onReply={(replyText) => onReply(replyText)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
