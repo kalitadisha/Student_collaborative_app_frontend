@@ -85,3 +85,22 @@
     width: calc(100% - 110px); /* Adjust width to your preference */
   }
 
+  
+
+  .upload-form .file-input-container .file-name-container {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .upload-form .file-input-container .file-name {
+    display: block;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
