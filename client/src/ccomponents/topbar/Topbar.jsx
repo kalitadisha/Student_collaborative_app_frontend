@@ -1,7 +1,7 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom';
 import img from "../../assets/person/1.png";
 import "./topbar.css";
 
@@ -9,12 +9,11 @@ export default function Topbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add state for authentication status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check login status when component mounts
     const checkLoginStatus = async () => {
       try {
         const response = await axios.get('/api/check-login');
@@ -46,17 +45,13 @@ export default function Topbar() {
   };
 
   const handleProfileClick = () => {
-    // Navigate to profile page
     navigate('/profile');
   };
 
   const handleLogoutClick = async () => {
     try {
-      // Call the logout API
       await axios.post('/api/logout');
-      // Update authentication status
       setIsLoggedIn(false);
-      // Redirect to the login page or homepage after logout
       navigate('/login');
     } catch (error) {
       console.error("Error during logout", error);
