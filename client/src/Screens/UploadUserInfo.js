@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Select, Layout } from 'antd';
 import { GithubOutlined, LinkedinOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import Topbar from '../ccomponents/topbar/Topbar';
 import Swal from 'sweetalert2';
 import '../css/UploadUserInfo.css';
@@ -11,6 +12,7 @@ const { Option } = Select;
 function UploadUserInfo() {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -21,6 +23,7 @@ function UploadUserInfo() {
             setLoading(false);
             Swal.fire('Success', 'Your information has been submitted!', 'success');
             form.resetFields();
+            navigate('/'); // Redirect to the homepage
         }, 2000);
     };
 
@@ -89,8 +92,6 @@ function UploadUserInfo() {
                         >
                             <Input prefix={<LinkedinOutlined />} placeholder="Enter your LinkedIn link" />
                         </Form.Item>
-
-                        
 
                         <Form.Item
                             name="phone"

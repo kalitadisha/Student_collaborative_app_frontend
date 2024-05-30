@@ -13,6 +13,7 @@ import Home from "./pages/Home/Home";
 import Profilepage from "./Screens/Profilepage";
 import Adminscreen from './Screens/Adminscreen';
 import UploadUserInfo from './Screens/UploadUserInfo';
+import Landingscreen from './Screens/Landingscreen';
 
 
 function App() {
@@ -25,13 +26,14 @@ function App() {
           <Route path='/registeruser' element={<RegisterUser />} />
           <Route path='/loginuser' element={<UserLogin />} />
           <Route path='/upload' element={<Upload />} />
-          <Route path='/' element={<Profile />} />
+          <Route path='/home' element={<Profile />} />
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
           <Route path= "/admin-panel" element={<Adminscreen/>}/> 
           <Route path='/profile' element={<Profilepage />} />
           <Route path='/uploaduserinfo' element={<UploadUserInfo />} />
+          <Route path='/' element={<Landingscreen />} />
         
         
 

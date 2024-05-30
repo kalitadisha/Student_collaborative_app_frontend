@@ -17,7 +17,7 @@ export default function Topbar() {
     // Check login status when component mounts
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get('/api/check-login');
+        const response = await axios.get('/api/users/check-login');
         setIsLoggedIn(response.data.isLoggedIn);
       } catch (error) {
         console.error("Error checking login status", error);
@@ -156,6 +156,8 @@ export default function Topbar() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+        
+    
   );
 }
