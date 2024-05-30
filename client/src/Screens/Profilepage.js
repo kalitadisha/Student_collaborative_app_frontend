@@ -1,4 +1,6 @@
 // ProfilePage.js
+import axios from 'axios';
+
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
@@ -16,17 +18,35 @@ const ProfilePage = () => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
-  const followersList = ['User1', 'User2', 'User3']; // Example followers
-  const followingList = ['UserA', 'UserB', 'UserC']; // Example following
+
+  const followersList = ['User1', 'User2', 'User3']; 
+  const followingList = ['UserA', 'UserB', 'UserC']; 
 
   const posts = [...Array(15).keys()]; // Example posts
+
   const collaborationPosts = [
     { id: 1, content: 'Collaboration Post 1', collaborators: ['Alice', 'Bob'] },
     { id: 2, content: 'Collaboration Post 2', collaborators: ['Charlie'] },
   ];
 
   const totalPosts = posts.length + collaborationPosts.length;
+
+  const handleFollow = (userId, setTotalFollowers) => {
+    const loggedInUserId = 789; // Replace with the actual logged-in user's ID
+    const followEndpoint = isFollowing ? 'unfollow' : 'follow';
+    axios.post(`/api/users/${userId}/${followEndpoint}/${loggedInUserId}`)
+      .then(() => {
+        setIsFollowing(!isFollowing);
+        // Assuming setTotalFollowers is defined elsewhere
+        setTotalFollowers(prev => isFollowing ? prev - 1 : prev + 1);
+      })
+      .catch(error => {
+        console.error('Error following/unfollowing user:', error);
+      });
+  };
+  
 
   return (
     <div>
