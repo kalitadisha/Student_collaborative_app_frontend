@@ -1,218 +1,94 @@
 import React, { useState } from "react";
+import { Form, Input, Button, Layout } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import Error from "../Components/Error";
-import Loader from "../Components/Loader";
-import Success from "../Components/Success";
-//import { BACKEND_URL } from '../Config/constants';
-import api from '../Services/api';
 import Topbar from "../ccomponents/topbar/Topbar";
+import Loader from "../Components/Loader";
+import Error from "../Components/Error";
+import Success from "../Components/Success";
+import api from '../Services/api';
+import Swal from 'sweetalert2';
+import "../css/UploadUserInfo.css"; // Assuming you want to keep the styles consistent
+
+const { Content } = Layout;
 
 const UserLogin = () => {
-    // State variables for email and password
-    const [emailId, setEmailId] = useState('');
-    const [password, setPassword] = useState('');
-
+    const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState();
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
-    //const history = useHistory();
-    //console.log("Backend URL:", BACKEND_URL);
-    
-
-    
-    // Function to handle form submission
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const handleLogin = async (values) => {
         setLoading(true);
         setError('');
+        setSuccess('');
         try {
-
-            const userData = {
-                emailId: emailId,
-                password: password
-              };
-
-            const response = await api.loginUser(userData);
-            // Assuming your backend sends a success message or user details upon successful login
+            const response = await api.loginUser(values);
             if (response.status === 200) {
                 setSuccess('Login Successful!');
                 setLoading(false);
-
-                setEmailId('');
-                setPassword('');
+                form.resetFields();
+                Swal.fire('Success', 'Login Successful! Redirecting...', 'success');
                 navigate('/upload');
-                // Redirect to the desired page after successful login
-                
             } else {
                 setError('Login failed');
                 setLoading(false);
             }
         } catch (error) {
-            //setError(true);
             setLoading(false);
             if (error.response && error.response.data && error.response.data.message) {
                 setError(error.response.data.message);
-              } else {
-                setError('An error occurred during user login. Please try again later.');
-              }
-        }
-    };
-    return (
-        <div>
-            <Topbar/>
-            {loading && <Loader />}
-            <div className="row justify-content-center mt-5">
-                <div className="col-md-5 mt-5">
-                    {error && <Error message={error} />}
-                    {success && <Success message="Login successful. Redirecting..." />}
-                    <div className="bs">
-                        <div className="form-group">
-                            <h2 className="mb-4" align="center">Login</h2>
-                            <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Email"
-                                value={emailId}
-                                onChange={(e) => setEmailId(e.target.value)}
-                                required
-                            />
-                            <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <p className="mt-2" style={{ textAlign: 'right' }}>
-                                <Link to="/forgotpassword">Forgot password?</Link>
-                            </p>
-                            <button className="btn btn-primary mt-3" type="submit" onClick={handleLogin} disabled={loading}>
-                                {loading ? 'Logging in...' : 'Login'}
-                            </button>
-                            <p className="mt-2">
-                                Don't have an account? <Link to="/registeruser">Sign up</Link>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-export default UserLogin;
-
-/*import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Error from "../Components/Error";
-import Loader from "../Components/Loader";
-import Success from "../Components/Success";
-import { BACKEND_URL } from '../Config/constants';
-
-const UserLogin = () => {
-    // State variables for email and password
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState();
-
-    //const history = useHistory();
-    console.log("Backend URL:", BACKEND_URL);
-    const navigate = useNavigate();
-
-
-    
-    // Function to handle form submission
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await axios.post("/api/users/loginuser", {
-                email: email,  // Assuming your backend expects 'name' for email
-                password: password
-            });
-            // Assuming your backend sends a success message or user details upon successful login
-            if (response.status === 200) {
-                setSuccess('Login Successful!');
-                setLoading(false);
-
-                setEmail('');
-                setPassword('');
-                navigate('/upload');
-                // Redirect to the desired page after successful login
-                
             } else {
-                setError(true);
-                setLoading(false);
+                setError('An error occurred during login. Please try again later.');
             }
-        } catch (error) {
-            setError(true);
-            setLoading(false);
-            console.error("Login error:", error);
         }
     };
 
     return (
-        <div>
-            {loading && (<Loader />)}
-
-            <div className="row justify-content-center mt-5">
-                <div className="col-md-5 mt-5">
-                    {error && (<Error message='Invalid Credentials!' />)}
-                    {success && (<Success message='Login Successful! .....redirecting' />)}
-                    
-
-                        <div className="bs" >
-
-                            
-
-                            <div className="form-group" >
-                        <h2 className="mb-4" align="center">Login</h2>
-                        <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder="email"
-                            value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-
-
-                        <input
-                                    type="password"
-                                    className="form-control"
-                                    placeholder="password"
-                            value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                />
-                                <p className="mt-2" style={{textAlign:'right'}} >
-                                    <Link to="/loginuser">Forgot password? </Link>
-                                </p>
-                                <button className="btn btn-primary mt-3" type="submit" onClick={handleLogin}>Login</button>
-
-                                <p className="mt-2">
-                                    Don't have an account? <Link to="/registeruser">Sign up</Link>
-                                </p>
-                            </div>
-
-
-
-
-                    </div>
-
-                    
+        <Layout>
+            <Topbar />
+            <Content style={{ padding: '50px' }}>
+                <div className="upload-form-container">
+                    <h1 className="upload-form-title">Login</h1>
+                    {loading && <Loader />}
+                    {error && <Error message={error} />}
+                    {success && <Success message={success} />}
+                    <Form
+                        form={form}
+                        layout="vertical"
+                        onFinish={handleLogin}
+                        className="upload-form"
+                    >
+                        <Form.Item
+                            name="emailId"
+                            label="Email"
+                            rules={[{ required: true, message: 'Please input your email!' }]}
+                        >
+                            <Input type="email" placeholder="Enter your email" />
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            label="Password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password placeholder="Enter your password" />
+                        </Form.Item>
+                        <p style={{ textAlign: 'right' }}>
+                            <Link to="/forgotpassword">Forgot password?</Link>
+                        </p>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" loading={loading} className="upload-form-button">
+                                {loading ? 'Logging in...' : 'Login'}
+                            </Button>
+                        </Form.Item>
+                        <p>
+                            Don't have an account? <Link to="/registeruser">Sign up</Link>
+                        </p>
+                    </Form>
                 </div>
-
-            </div>
-        </div>
+            </Content>
+        </Layout>
     );
 };
 
 export default UserLogin;
-*/

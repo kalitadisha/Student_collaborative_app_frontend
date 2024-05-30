@@ -11,6 +11,8 @@ import UserLogin from './Screens/UserLogin';
 import Profile from "./pages/profile/Profile";
 import Home from "./pages/Home/Home";
 import Profilepage from "./Screens/Profilepage";
+import Adminscreen from './Screens/Adminscreen';
+import UploadUserInfo from './Screens/UploadUserInfo';
 
 
 function App() {
@@ -27,8 +29,9 @@ function App() {
           <Route path = "/loginadmin" element={<Adminlogin/>}/>
           <Route path = "/registeruseradmin" element = {<Adminregistration/>} />  
           <Route path= "/admin-dashboard" element={<Admindashboard/>}/> 
-          
+          <Route path= "/admin-panel" element={<Adminscreen/>}/> 
           <Route path='/profile' element={<Profilepage />} />
+          <Route path='/uploaduserinfo' element={<UploadUserInfo />} />
         
         
 

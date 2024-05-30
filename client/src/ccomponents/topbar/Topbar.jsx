@@ -1,22 +1,37 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
 import img from "../../assets/person/1.png";
 import "./topbar.css";
- 
 
 export default function Topbar() {
-
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add state for authentication status
   const dropdownRef = useRef(null);
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  useEffect(() => {
+    // Check login status when component mounts
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get('/api/check-login');
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        console.error("Error checking login status", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value);
     if (e.target.value.length > 2) {
       try {
-        const response = await axios.get(`/search?q=${e.target.value}`);
+        const response = await axios.get(`/api/search?q=${e.target.value}`);
         setSearchResults(response.data);
       } catch (error) {
         console.error("Error fetching search results", error);
@@ -31,13 +46,29 @@ export default function Topbar() {
   };
 
   const handleProfileClick = () => {
-    // Add navigation or action for profile
-    console.log("Profile clicked");
+    // Navigate to profile page
+    navigate('/profile');
   };
 
-  const handleLogoutClick = () => {
-    // Add logout functionality
-    console.log("Logout clicked");
+  const handleLogoutClick = async () => {
+    try {
+      // Call the logout API
+      await axios.post('/api/logout');
+      // Update authentication status
+      setIsLoggedIn(false);
+      // Redirect to the login page or homepage after logout
+      navigate('/login');
+    } catch (error) {
+      console.error("Error during logout", error);
+    }
+  };
+
+  const handleLoginClick = () => {
+    navigate('/loginuser');
+  };
+
+  const handleRegisterClick = () => {
+    navigate('/registeruser');
   };
 
   useEffect(() => {
@@ -83,7 +114,6 @@ export default function Topbar() {
       <div className="topbarRight">
         <div className="topbarLinks">
           <span className="topbarLink">Homepage</span>
-          
         </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
@@ -98,17 +128,30 @@ export default function Topbar() {
             <Notifications />
             <span className="topbarIconBadge">1</span>
           </div>
-          </div>
+        </div>
         <div className="topbarProfile" ref={dropdownRef}>
           <img src={img} alt="" className="topbarImg" onClick={toggleDropdown} />
           {dropdownVisible && (
             <div className="profileDropdown">
-              <div className="dropdownItem" onClick={handleProfileClick}>
-                Profile
-              </div>
-              <div className="dropdownItem" onClick={handleLogoutClick}>
-                Logout
-              </div>
+              {isLoggedIn ? (
+                <>
+                  <div className="dropdownItem" onClick={handleProfileClick}>
+                    Profile
+                  </div>
+                  <div className="dropdownItem" onClick={handleLogoutClick}>
+                    Logout
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="dropdownItem" onClick={handleLoginClick}>
+                    Login
+                  </div>
+                  <div className="dropdownItem" onClick={handleRegisterClick}>
+                    Register
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>
