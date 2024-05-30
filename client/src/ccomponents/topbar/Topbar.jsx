@@ -1,11 +1,7 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import axios from 'axios';
-<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-=======
-import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
->>>>>>> 1fcea13c624108e429d880b68122cf159c4417a8
 import img from "../../assets/person/1.png";
 import "./topbar.css";
 
@@ -15,9 +11,6 @@ export default function Topbar() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Add state for authentication status
   const dropdownRef = useRef(null);
-<<<<<<< HEAD
-  const navigate = useNavigate();
-=======
   const navigate = useNavigate(); // Initialize useNavigate hook
 
   useEffect(() => {
@@ -33,7 +26,6 @@ export default function Topbar() {
 
     checkLoginStatus();
   }, []);
->>>>>>> 1fcea13c624108e429d880b68122cf159c4417a8
 
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value);
@@ -53,26 +45,6 @@ export default function Topbar() {
     setDropdownVisible(!dropdownVisible);
   };
 
-<<<<<<< HEAD
-  const handleProfileClick =  () => {
-    // Add navigation or action for profile
-   // Navigate to profile page
-   navigate('/profile');
-
-  };
-
-  const handleLogoutClick = async() => {
-    // Add logout functionality
-    try {
-      // Call the logout API
-      await axios.post('/api/users/logout');
-      // Redirect to the login page or homepage after logout
-      navigate('/loginuser');
-    } catch (error) {
-      console.error("Error during logout", error);
-    }
-
-=======
   const handleProfileClick = () => {
     // Navigate to profile page
     navigate('/profile');
@@ -97,7 +69,6 @@ export default function Topbar() {
 
   const handleRegisterClick = () => {
     navigate('/registeruser');
->>>>>>> 1fcea13c624108e429d880b68122cf159c4417a8
   };
 
   useEffect(() => {
