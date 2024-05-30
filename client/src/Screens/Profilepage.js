@@ -1,22 +1,14 @@
 // ProfilePage.js
-import React, { useState, useRef, useEffect } from 'react';
-import { PermMedia } from "@mui/icons-material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import SendIcon from '@mui/icons-material/Send';
-import Feed from "../ccomponents/feed/Feed";
-import Rightbar from "../ccomponents/rightbar/Rightbar";
-import Sidebar from "../ccomponents/sidebar/Sidebar";
+import React, { useEffect, useRef, useState } from 'react';
 import Topbar from "../ccomponents/topbar/Topbar";
 import profilePhoto from '../samples/room3.jpg';
 //import './ProfilePage.css';
 import FullImageModal from '../Components/FullImageModal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faComment } from '@fortawesome/free-solid-svg-icons';
 import '../css/ProfilepageCss.css';
-import Navbar from '../Components/Navbar';
-import img from "../assets/person/user.png";
 
 
 const ProfilePage = () => {
