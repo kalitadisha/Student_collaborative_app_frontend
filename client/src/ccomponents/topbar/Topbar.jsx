@@ -1,6 +1,7 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
-import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import img from "../../assets/person/1.png";
 import "./topbar.css";
  
@@ -11,6 +12,7 @@ export default function Topbar() {
   const [searchResults, setSearchResults] = useState([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value);
@@ -30,14 +32,24 @@ export default function Topbar() {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleProfileClick = () => {
+  const handleProfileClick =  () => {
     // Add navigation or action for profile
-    console.log("Profile clicked");
+   // Navigate to profile page
+   navigate('/profile');
+
   };
 
-  const handleLogoutClick = () => {
+  const handleLogoutClick = async() => {
     // Add logout functionality
-    console.log("Logout clicked");
+    try {
+      // Call the logout API
+      await axios.post('/api/users/logout');
+      // Redirect to the login page or homepage after logout
+      navigate('/loginuser');
+    } catch (error) {
+      console.error("Error during logout", error);
+    }
+
   };
 
   useEffect(() => {
