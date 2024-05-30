@@ -6,6 +6,7 @@ import Error from "../Components/Error";
 import Success from "../Components/Success";
 import { Link } from "react-router-dom";
 import Topbar from "../ccomponents/topbar/Topbar";
+//import "./Adminregistration.css"; // Import the CSS file
 
 function Adminregistration() {
   const [loading, setLoading] = useState(false);
@@ -49,53 +50,81 @@ function Adminregistration() {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <Topbar/>
-      <h1>Admin Registration</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="registration-title">Admin Registration</h1>
+      <form onSubmit={handleSubmit} className="registration-container" style={{ maxWidth: '500px', margin: '0 auto', padding: '20px', border: '1px solid #c3cad5', borderRadius: '5px', backgroundColor: '#c3cad5' }}>
         {loading && <Loader />}
         {error && <Error message={error} />}
         {success && <Success message='Registration Successful!' />}
-        <div className="row justify-content-center mt-5">
-          <div className="col-md-5 mt-5">
-            < div className="bs">
-              <div>
-                <label>UserName:</label>
-                <input type="text" className="form-control" placeholder="username"
-                  name="username" value={formData.username} onChange={handleChange} />
-              </div>
-              <div>
-                <label>Email:</label>
-                <input type="email" className="form-control" placeholder="email"
-                  name="email" value={formData.email} onChange={handleChange} />
-              </div>
-              <div>
-                <label>Role:</label>
-                <input type="text" className="form-control" placeholder="role"
-                  name="role" value={formData.role} onChange={handleChange} />
-              </div>
-              <div>
-                <label>Password:</label>
-                <input type="password" className="form-control" placeholder="password"
-                  name="password" value={formData.password} onChange={handleChange}/>
-              </div>
-              <div>
-                <label>Admin Code:</label>
-                <input type="password" className="form-control" placeholder="admincode"
-                  name="adminCode" value={formData.adminCode} onChange={handleChange} required/>
-              </div>
-              <div>
-                <button type="submit" className="btn btn-primary mt-3">Register</button>
-                <Link to='/loginadmin'>
-          <div className="admins-buttons">
-            <button className="btn landingbtn">Already Registered as Admin, Login here!</button>
-          </div>
-        </Link>
-              </div>
-              
-      
+        <div>
+          <label style={{ marginBottom: '5px' }}>UserName:</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px', marginBottom: '15px' }}
+          />
+        </div>
+        <div>
+          <label style={{ marginBottom: '5px' }}>Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px', marginBottom: '15px' }}
+          />
+        </div>
+        <div>
+          <label style={{ marginBottom: '5px' }}>Role:</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px', marginBottom: '15px' }}
+          />
+        </div>
+        <div>
+          <label style={{ marginBottom: '5px' }}>Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px', marginBottom: '15px' }}
+          />
+        </div>
+        <div>
+          <label style={{ marginBottom: '5px' }}>Admin Code:</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="admincode"
+            name="adminCode"
+            value={formData.adminCode}
+            onChange={handleChange}
+            required
+            style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '3px', marginBottom: '15px' }}
+          />
+        </div>
+        <div>
+          <button type="submit" className="btn btn-primary mt-3" style={{ width: '100%' }}>Register</button>
+          <Link to='/loginadmin'>
+            <div className="admins-buttons">
+              <button className="btn landingbtn" style={{ backgroundColor: 'transparent', border: 'none', color: '#1890ff', cursor: 'pointer', marginTop: '20px' }}>Already Registered as Admin, Login here!</button>
             </div>
-          </div>
+          </Link>
         </div>
       </form>
     </div>

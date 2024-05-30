@@ -1,6 +1,8 @@
 // ProfilePage.js
-import AddCommentIcon from '@mui/icons-material/AddComment';
 import axios from 'axios';
+
+import AddCommentIcon from '@mui/icons-material/AddComment';
+//import axios from 'axios';
 
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
@@ -18,28 +20,14 @@ const ProfilePage = () => {
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowing, setShowFollowing] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
-  const followersList = async (userId)=> {
-    try {
-        const response = await axios.get('/api/users/{userId}/totalFollowers');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching followers:', error);
-        throw error;
-    }
-};
 
-  const followingList = async (userId) => {
-    try {
-        const response = await axios.get('/api/users/{userId}/totalFollowings');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching following:', error);
-        throw error;
-    }
-};
+  const followersList = ['User1', 'User2', 'User3']; 
+  const followingList = ['UserA', 'UserB', 'UserC']; 
 
   const posts = [...Array(15).keys()]; // Example posts
+
   const collaborationPosts = [
     { id: 1, content: 'Collaboration Post 1', collaborators: ['Alice', 'Bob'] },
     { id: 2, content: 'Collaboration Post 2', collaborators: ['Charlie'] },
@@ -47,19 +35,20 @@ const ProfilePage = () => {
 
   const totalPosts = posts.length + collaborationPosts.length;
 
-
-  const handleFollow = () => {
-    const loggedInUserId = 789; 
+  const handleFollow = (userId, setTotalFollowers) => {
+    const loggedInUserId = 789; // Replace with the actual logged-in user's ID
     const followEndpoint = isFollowing ? 'unfollow' : 'follow';
-    axios.post('/api/users/{userId}/follow/{followerId}')
+    axios.post(`/api/users/${userId}/${followEndpoint}/${loggedInUserId}`)
       .then(() => {
         setIsFollowing(!isFollowing);
+        // Assuming setTotalFollowers is defined elsewhere
         setTotalFollowers(prev => isFollowing ? prev - 1 : prev + 1);
       })
       .catch(error => {
         console.error('Error following/unfollowing user:', error);
-      });
-  };
+      });
+  };
+  
 
   return (
     <div>
