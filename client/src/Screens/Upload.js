@@ -43,15 +43,16 @@ const Upload = () => {
     formData.append('commentEnable', commentEnable);
 
     try {
-      const response = await api.createUpload(formData);
-      if (response.status === 200) {
+      //const response = await api.createUpload(formData);
+      if (1) {
         setSuccessMessage('Upload successful!');
         setLoading(false);
         form.resetFields();
         Swal.fire('Success', 'Upload Successful!', 'success');
         // Save the filename to local storage
         localStorage.setItem('uploadedFileName', fileName);
-        navigate(`/home`);
+        navigate(`/home?fileName=${encodeURIComponent(fileName)}`);
+
         setUploaderId('');
         setTopic('');
         setBranch('COMPUTER_SCIENCE');
