@@ -3,13 +3,7 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-=======
-import SendIcon from '@mui/icons-material/Send';
-import React, { useState, useEffect } from 'react';
->>>>>>> b117981d304c3b7cda6200079442522ba81fbed8
+import React, { useEffect, useState } from 'react';
 import img from "../../assets/person/user.png";
 import "./share.css";
 

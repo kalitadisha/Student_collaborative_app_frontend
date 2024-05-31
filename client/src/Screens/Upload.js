@@ -2,7 +2,6 @@ import { Form, Layout } from "antd";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import api from '../Services/api';
 import Topbar from "../ccomponents/topbar/Topbar";
 import '../css/Upload.css';
 
@@ -53,14 +52,9 @@ const Upload = () => {
           navigate('/home');
         });
         // Save the filename to local storage
-<<<<<<< HEAD
-        //localStorage.setItem('uploadedFileName', fileName);
-        navigate(`/home?filename=${encodeURIComponent(fileName)}`);
-=======
         localStorage.setItem('uploadedFileName', fileName);
         navigate(`/home?fileName=${encodeURIComponent(fileName)}`);
 
->>>>>>> b117981d304c3b7cda6200079442522ba81fbed8
         setUploaderId('');
         setTopic('');
         setBranch('COMPUTER_SCIENCE');
