@@ -25,17 +25,15 @@ const RegisterUser = () => {
     }
 
     try {
-      const isIdUniqueResponse = await api.checkIdUnique(id);
-      const isIdUnique = isIdUniqueResponse.status === 200;
-      if (!isIdUnique) {
+      const idResponse = await api.checkIdUnique(id);
+      if (idResponse.status === 409) {
         Swal.fire('Error', 'ID already exists', 'error');
         setLoading(false);
         return;
       }
 
-      const isEmailIdUniqueResponse = await api.checkEmailIdUnique(emailId);
-      const isEmailIdUnique = isEmailIdUniqueResponse.status === 200;
-      if (!isEmailIdUnique) {
+      const emailResponse = await api.checkEmailIdUnique(emailId);
+      if (emailResponse.status === 409) {
         Swal.fire('Error', 'Email already exists', 'error');
         setLoading(false);
         return;

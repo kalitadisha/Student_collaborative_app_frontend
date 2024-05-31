@@ -53,11 +53,11 @@ export default function Topbar() {
   const handleLogoutClick = async () => {
     try {
       // Call the logout API
-      await axios.post('/api/logout');
+      await axios.post('/api/users/logout');
       // Update authentication status
       setIsLoggedIn(false);
       // Redirect to the login page or homepage after logout
-      navigate('/login');
+      navigate('/loginuser');
     } catch (error) {
       console.error("Error during logout", error);
     }

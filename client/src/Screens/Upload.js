@@ -1,9 +1,9 @@
+import { Form, Layout } from "antd";
 import React, { useState } from 'react';
-import { Form, Input, Button, Layout } from "antd";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import api from '../Services/api';
 import Topbar from "../ccomponents/topbar/Topbar";
-import Swal from 'sweetalert2';
 import '../css/Upload.css';
 
 const { Content } = Layout;
@@ -24,6 +24,7 @@ const Upload = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,10 +49,12 @@ const Upload = () => {
         setSuccessMessage('Upload successful!');
         setLoading(false);
         form.resetFields();
-        Swal.fire('Success', 'Upload Successful!', 'success');
+        Swal.fire('Success', 'Upload Successful!', 'success').then(() => {
+          navigate('/home');
+        });
         // Save the filename to local storage
-        localStorage.setItem('uploadedFileName', fileName);
-        navigate(`/home`);
+        //localStorage.setItem('uploadedFileName', fileName);
+        navigate(`/home?filename=${encodeURIComponent(fileName)}`);
         setUploaderId('');
         setTopic('');
         setBranch('COMPUTER_SCIENCE');
