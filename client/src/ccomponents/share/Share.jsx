@@ -1,9 +1,10 @@
 import { PermMedia } from "@mui/icons-material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import SendIcon from '@mui/icons-material/Send';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import img from "../../assets/person/user.png";
 import "./share.css";
 
@@ -14,6 +15,8 @@ export default function Share() {
   const [rating, setRating] = useState(0);
   const [workAdded, setWorkAdded] = useState(false);
   const [postContent, setPostContent] = useState('');
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleCommentInputChange = (e) => {
     setCommentInput(e.target.value);
@@ -68,6 +71,15 @@ export default function Share() {
     setComments(newComments);
   };
 
+<<<<<<< HEAD
+  const handleAddWorkClick = () => {
+    navigate('/upload'); // Navigate to the upload page
+=======
+  const redirectToUpload = () => {
+    window.location.href = '/upload';
+>>>>>>> cdedd6daa9e6f99ad9700819bfc322a85f8d370d
+  };
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -83,10 +95,14 @@ export default function Share() {
         <hr className="shareHr" />
         <div className="shareBottom">
           <div className="shareOptions">
-            <div className="shareOption">
+<<<<<<< HEAD
+            <div className="shareOption" onClick={handleAddWorkClick}>
               <input type="file" id="files" style={{ display: 'none' }} onChange={handleFileChange} />
+=======
+            <div className="shareOption" onClick={redirectToUpload}>
+>>>>>>> cdedd6daa9e6f99ad9700819bfc322a85f8d370d
               <PermMedia htmlColor="tomato" className="shareIcon" />
-              <label className="shareOptionText" htmlFor="files">Add your work</label>
+              <span className="shareOptionText">Add your work</span>
             </div>
             <div
               className={`shareOption ${!workAdded ? 'disabled' : ''}`}

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Error from "../Components/Error";
 import { Link } from "react-router-dom";
-import "./LoginAdmin.css"; // Import the CSS file
 import Topbar from "../ccomponents/topbar/Topbar";
+import "./LoginAdmin.css"; // Import the CSS file
 
 function LoginAdmin() {
   const [loading, setLoading] = useState(false);
@@ -51,75 +51,65 @@ function LoginAdmin() {
   };
 
   return (
-
     <div>
       <Topbar/>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 style={{ textAlign: 'center' }}>Admin Login</h1>
+      <form onSubmit={handleSubmit} className="upload-container" style={{ padding: '50px' }}>
         {loading && <Loader />}
         {error && <Error message={error} />}
-        <div className="row justify-content-center mt-5">
-          <div className="col-md-5 mt-5">
-            <div className="bs">
-              <div className="form-group">
-                <label>Email:</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={{ marginBottom: '20px' }}
+          />
+        </div>
 
-              <div className="form-group">
-                <label>Password:</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            style={{ marginBottom: '20px' }}
+          />
+        </div>
 
-              <div className="form-group">
-                <label>Admin Code:</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="admincode"
-                  name="adminCode"
-                  value={formData.adminCode}
-                  onChange={handleChange}
-                />
-              </div>
+        <div className="form-group">
+          <label>Admin Code:</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="admincode"
+            name="adminCode"
+            value={formData.adminCode}
+            onChange={handleChange}
+            style={{ marginBottom: '20px' }}
+          />
+        </div>
 
-              <div className="form-group">
-                <button type="submit" className="btn btn-primary mt-3">
-                  Login
-                </button>
-              </div>
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '20px' }}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </div>
 
-              <div className="form-group">
-                <Link to="/registeruseradmin">
-                  <div className="admins-buttons">
-                    <button className="btn landingbtn">
-                      Don't have an account? Register as Admin first
-                    </button>
-                  </div>
-                </Link>
-              </div>
+        <div className="form-group">
+          <Link to="/registeruseradmin">
+            <div className="admins-buttons">
+              <button className="btn landingbtn">
+                Don't have an account? Register as Admin first
+              </button>
             </div>
-          </div>
+          </Link>
         </div>
       </form>
     </div>

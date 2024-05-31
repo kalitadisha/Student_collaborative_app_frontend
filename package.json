@@ -1,8 +1,23 @@
 {
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "express": "^4.19.2",
     "http-proxy-middleware": "^2.0.6",
     "react-bootstrap": "^2.10.2",
-    "react-router-dom": "^6.20.1"
+<<<<<<< HEAD
+    "react-router-dom": "^6.23.1"
   }
+=======
+    "react-router-dom": "^6.20.1"
+  },
+  "name": "student_collaborative_app_frontend",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+>>>>>>> cdedd6daa9e6f99ad9700819bfc322a85f8d370d
 }

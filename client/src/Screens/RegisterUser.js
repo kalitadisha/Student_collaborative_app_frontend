@@ -1,10 +1,10 @@
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Layout } from 'antd';
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Layout } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import Topbar from "../ccomponents/topbar/Topbar";
 import Swal from 'sweetalert2';
 import api from '../Services/api';
+import Topbar from "../ccomponents/topbar/Topbar";
 import '../css/UploadUserInfo.css';
 
 const { Content } = Layout;
@@ -25,14 +25,16 @@ const RegisterUser = () => {
     }
 
     try {
-      const isIdUnique = await api.checkIdUnique(id);
+      const isIdUniqueResponse = await api.checkIdUnique(id);
+      const isIdUnique = isIdUniqueResponse.status === 200;
       if (!isIdUnique) {
         Swal.fire('Error', 'ID already exists', 'error');
         setLoading(false);
         return;
       }
 
-      const isEmailIdUnique = await api.checkEmailIdUnique(emailId);
+      const isEmailIdUniqueResponse = await api.checkEmailIdUnique(emailId);
+      const isEmailIdUnique = isEmailIdUniqueResponse.status === 200;
       if (!isEmailIdUnique) {
         Swal.fire('Error', 'Email already exists', 'error');
         setLoading(false);
