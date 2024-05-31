@@ -68,6 +68,10 @@ export default function Share() {
     setComments(newComments);
   };
 
+  const redirectToUpload = () => {
+    window.location.href = '/upload';
+  };
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -83,10 +87,9 @@ export default function Share() {
         <hr className="shareHr" />
         <div className="shareBottom">
           <div className="shareOptions">
-            <div className="shareOption">
-              <input type="file" id="files" style={{ display: 'none' }} onChange={handleFileChange} />
+            <div className="shareOption" onClick={redirectToUpload}>
               <PermMedia htmlColor="tomato" className="shareIcon" />
-              <label className="shareOptionText" htmlFor="files">Add your work</label>
+              <span className="shareOptionText">Add your work</span>
             </div>
             <div
               className={`shareOption ${!workAdded ? 'disabled' : ''}`}

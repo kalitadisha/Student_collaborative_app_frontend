@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Layout } from "antd";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../Services/api';
 import Topbar from "../ccomponents/topbar/Topbar";
-import Loader from "../Components/Loader";
-import Error from "../Components/Error";
-import Success from "../Components/Success";
-//import api from '../Services/api';
 import Swal from 'sweetalert2';
 import '../css/Upload.css';
 
@@ -14,7 +10,6 @@ const { Content } = Layout;
 
 const Upload = () => {
   const [form] = Form.useForm();
-  const [error, setError] = useState('');
   const [uploaderId, setUploaderId] = useState('');
   const [topic, setTopic] = useState('');
   const [branch, setBranch] = useState('COMPUTER_SCIENCE');
@@ -54,7 +49,9 @@ const Upload = () => {
         setLoading(false);
         form.resetFields();
         Swal.fire('Success', 'Upload Successful!', 'success');
-        navigate('/profile');
+        // Save the filename to local storage
+        localStorage.setItem('uploadedFileName', fileName);
+        navigate(`/home`);
         setUploaderId('');
         setTopic('');
         setBranch('COMPUTER_SCIENCE');
@@ -68,11 +65,11 @@ const Upload = () => {
       }
     } catch (error) {
       setLoading(false);
-            if (error.response && error.response.data && error.response.data.message) {
-                setError(error.response.data.message);
-            } else {
-                setError('An error occurred during upload. Please try again later.');
-            }
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage('An error occurred during upload. Please try again later.');
+      }
     }
   };
 
@@ -146,10 +143,6 @@ const Upload = () => {
               </div>
             </div>
 
-
-
-
-
             <label htmlFor="downloadEnable">Download Enable:</label>
             <select id="downloadEnable" value={downloadEnable} onChange={(e) => setDownloadEnable(e.target.value)}>
               <option value="true">Yes</option>
@@ -167,7 +160,6 @@ const Upload = () => {
             </button>
           </form>
         </div>
-
       </div>
     </div>
   );
