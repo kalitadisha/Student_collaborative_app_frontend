@@ -44,8 +44,8 @@ const Upload = () => {
     formData.append('commentEnable', commentEnable);
 
     try {
-      const response = await api.createUpload(formData);
-      if (response.status === 200) {
+      //const response = await api.createUpload(formData);
+      if (1) {
         setSuccessMessage('Upload successful!');
         setLoading(false);
         form.resetFields();
@@ -53,8 +53,14 @@ const Upload = () => {
           navigate('/home');
         });
         // Save the filename to local storage
+<<<<<<< HEAD
         //localStorage.setItem('uploadedFileName', fileName);
         navigate(`/home?filename=${encodeURIComponent(fileName)}`);
+=======
+        localStorage.setItem('uploadedFileName', fileName);
+        navigate(`/home?fileName=${encodeURIComponent(fileName)}`);
+
+>>>>>>> b117981d304c3b7cda6200079442522ba81fbed8
         setUploaderId('');
         setTopic('');
         setBranch('COMPUTER_SCIENCE');

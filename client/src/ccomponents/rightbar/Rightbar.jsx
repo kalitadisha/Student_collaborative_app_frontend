@@ -19,9 +19,13 @@ export default function Rightbar({ profile }) {
   ];
 
   const userInfo = [
-    { key: "City", value: "Guwahati" },
-    { key: "From", value: "Assam" },
-    { key: "Relationship", value: "Single" },
+    { key: "College Id", value: "200710007190" },
+    { key: "Branch", value:"Computer Scoence and Engineering" },
+    { key: "Semester", value: "8th" },
+    { key: "Interests", value: "Web development" },
+    { key: "GithubLink", value: "abcd.com" },
+    { key: "LinkedInLink", value: "xyz.com" },
+    { key: "Phone Number", value: "N/A" },
   ];
 
   const ProfileRightbar = () => {

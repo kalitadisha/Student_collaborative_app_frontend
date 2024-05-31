@@ -3,8 +3,13 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+=======
+import SendIcon from '@mui/icons-material/Send';
+import React, { useState, useEffect } from 'react';
+>>>>>>> b117981d304c3b7cda6200079442522ba81fbed8
 import img from "../../assets/person/user.png";
 import "./share.css";
 
@@ -15,6 +20,18 @@ export default function Share() {
   const [rating, setRating] = useState(0);
   const [workAdded, setWorkAdded] = useState(false);
   const [postContent, setPostContent] = useState('');
+  const [uploadedFileName, setUploadedFileName] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fileName = params.get('fileName');
+    console.log('Uploaded file name:', fileName); // Add this line to check if the file name is retrieved correctly
+    setUploadedFileName(fileName);
+
+    setWorkAdded(true);
+  setCommentVisible(true);
+  }, []);
+  
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -77,18 +94,20 @@ export default function Share() {
 
   return (
     <div className="share">
-      <div className="shareWrapper">
-        <div className="shareTop">
-          <img className="shareProfileImg" src={img} alt="" />
-          <input
-            placeholder="Share your imagination"
-            className="shareInput"
-            value={postContent}
-            onChange={handlePostContentChange}
-          />
-        </div>
-        <hr className="shareHr" />
-        <div className="shareBottom">
+    <div className="shareWrapper">
+      <div className="shareTop">
+        <img className="shareProfileImg" src={img} alt="" />
+        <input
+          placeholder="Share your work"
+          className="shareInput"
+          value={postContent}
+          onChange={handlePostContentChange}
+        />
+      </div>
+      <hr className="shareHr" />
+      <div className="shareBottom">
+      {uploadedFileName && <p>Uploaded file: {uploadedFileName}</p>}
+
           <div className="shareOptions">
             <div className="shareOption" onClick={redirectToUpload}>
               <PermMedia htmlColor="tomato" className="shareIcon" />

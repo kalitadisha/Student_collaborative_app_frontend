@@ -2,8 +2,18 @@ import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import img from "../../assets/person/1.png";
 import "./topbar.css";
+
+
+// Define dummy user profiles
+const dummyUsers = [
+  { id: 1, username: "JohnDoe", profilePicture: "path/to/profilePicture1.jpg" },
+  { id: 2, username: "JaneSmith", profilePicture: "path/to/profilePicture2.jpg" },
+  { id: 3, username: "AliceJohnson", profilePicture: "path/to/profilePicture3.jpg" },
+  // Add more dummy users as needed
+];
 
 export default function Topbar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,12 +40,11 @@ export default function Topbar() {
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value);
     if (e.target.value.length > 2) {
-      try {
-        const response = await axios.get(`/api/search?q=${e.target.value}`);
-        setSearchResults(response.data);
-      } catch (error) {
-        console.error("Error fetching search results", error);
-      }
+      // Filter dummy users based on search query
+      const filteredUsers = dummyUsers.filter(user =>
+        user.username.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setSearchResults(filteredUsers);
     } else {
       setSearchResults([]);
     }
@@ -87,24 +96,27 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo" href="/">Students' Social</span>
+        <Link to="/home">
+          <span className="logo">Students' Social</span>
+        </Link>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
           <Search className="searchIcon" />
           <input
-            placeholder="Search for projects or assignments"
+            placeholder="Search for users"
             className="searchInput"
             value={searchQuery}
             onChange={handleSearch}
           />
           {searchResults.length > 0 && (
             <div className="searchResults">
-              {searchResults.map((doc) => (
-                <div key={doc.id} className="searchResultItem">
-                  <a href={doc.url} target="_blank" rel="noopener noreferrer">
-                    {doc.name} ({doc.type})
-                  </a>
+              {searchResults.map((user) => (
+                <div key={user.id} className="searchResultItem">
+                  <Link to={`/profile/${user.id}`} className="searchResultLink">
+                    <img src={user.profilePicture} alt={user.username} className="searchResultImage" />
+                    <span className="searchResultUsername">{user.username}</span>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -156,8 +168,6 @@ export default function Topbar() {
           )}
         </div>
       </div>
-      </div>
-        
-    
+    </div>
   );
 }
